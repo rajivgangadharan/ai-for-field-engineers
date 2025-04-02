@@ -116,7 +116,7 @@ graph TD;
     L --> N;
     
     N --> O(Azure Data Lake);
-    M --> V (Vector Data Store);
+    M --> V(Vector Data Store);
     
     subgraph "Storage Destination"
         O
