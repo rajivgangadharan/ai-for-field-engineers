@@ -37,6 +37,7 @@ relevant answers from unstructured PDFs, service logs, and manuals.
 
 * Engineer wants to find out how to resolve the issue
 
+```text
 Q: Issue with product serno: X2378, Error message: UPS not charging
 
 P: Query will execute a fetch from a knowledge document store based on 
@@ -47,13 +48,16 @@ A: Perform the following troubleshooting activities , fetched from KB006,
     1. Check if power supply is available using a tester
     2. Check if the current reaches the transformer
     3. Check if the current reaches the rectifier
+```
 
 * Engineer wants to know what is wrong with the UPS
 
+```text
 Q: Error Code 5432, provide details
 
 A: This is because of higher/incompatible power supply voltage, check if 
    voltage is 110 for US
+```
 
 ---
 
