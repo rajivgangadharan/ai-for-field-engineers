@@ -207,6 +207,20 @@ which in our case is a service engineer.
 
 ### Post Processing
 
+
+graph LR;
+    UQ["User Query"] -->|Search using metadata & vectors| VDBLU["Vector DB Lookup"];
+    VDBLU -->|Retrieve relevant document chunks| CHUNKS["Retrieved Chunks with Metadata"];
+    CHUNKS -->|Pass retrieved context + metadata to LLM| LLM["LLM Response Generation"];
+    LLM -->|Generate structured response with citations| RESPONSE["Final Response with Sources"];
+    RESPONSE -->|Return answer with links & references| USR["User"];
+
+    subgraph "Citation Extraction Process" 
+        CHUNKS -->|Extract Source Info| META["Extracted Metadata (Title, Page, URL)"];
+        META -->|Attach to response| LLM;
+    end
+
+
 This response can then be enriched or formatted in a way so as to make it more 
 useful for the user
 
