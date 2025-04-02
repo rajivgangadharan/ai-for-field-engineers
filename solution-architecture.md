@@ -98,28 +98,29 @@ for.
 ```mermaid
 
 graph TD;
-    A[Data Sources] -->|Scanned PDFs| B[OCR Processing];
-    A -->|Digital PDFs| C[Text Extraction];
-    A -->|Field and Control Logs - Binary or Proprietary| D[Binary to JSON or XML];
-    A -->|Modbus Data - Levels 1 to 3| E[Modbus to CSV Processing];
-    A -->|CSV or Syslog Logs - Levels 2 to 3| F[CSV Parsing and Normalization];
-    A -->|JSON or XML Logs - Level 4| G[Direct Storage];
-    A -->|MQTT Alerts| H[Azure IoT Hub];
+    DS[Data Sources] -->|Scanned PDFs| O[OCR Processing];
+    DS -->|Digital PDFs| TE[Text Extraction];
+    DS -->|Field and Control Logs - Binary or Proprietary| BJX[Binary to JSON or XML];
+    DS -->|Modbus Data - Levels 1 to 3| E[Modbus to CSV Processing];
+    DS -->|CSV or Syslog Logs - Levels 2 to 3| F[CSV Parsing and Normalization];
+    DS -->|JSON or XML Logs - Level 4| DIS[Direct Storage];
+    DS -->|MQTT Alerts| H[Azure IoT Hub];
     
-    B --> I[Text Cleaning and Chunking];
-    C --> I;
-    D --> T[Transform];
+    O --> I[Text Cleaning and Chunking];
+    TE --> I;
+    BJX --> T[Transform];
     E --> T;
     F --> T;
-    G --> K[Store in Azure Blob];
+    DIS --> K[Store in Azure Blob];
     H --> R[Real-time Event Processing];
     
     I --> M[Metadata Extraction];
     K --> N;
     R --> N;
     
-    T --> N(Azure Data Lake);
-    M --> V(Vector Data Store);
+    T   --> N(Azure Data Lake);
+    M   --> DOC(Document Store);
+    DOC --> V(Vector Data Store);
     
     subgraph "Storage Destination"
         N
