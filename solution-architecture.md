@@ -150,17 +150,21 @@ graph LR;
 --- 
 ```mermaid
 ---
-title: Metadata Storage and Retrieval Pipeline
+title: Embedding Storage Pipeline
 ---
 graph LR;
     DOC(Document Store) -->|Fetch metadata for chunking| CHUNKING[Chunking Process];
-    CHUNKING -->|Process text for embeddings| VEC[Vectorization (Embedding Model)];
-    VEC -->|Store embeddings + metadata| V[Vector Database (Qdrant)];
+    CHUNKING -->|Process text for embeddings| VEC[Vectorization using an Embedding Model];
+    VEC -->|Store embeddings + metadata| V[Vector Database]; 
+```
 
-    subgraph "Retrieval Pipeline"
-        UQ[User Query] -->|Search using metadata & vectors| VDBLU[Vector DB Lookup];
-        VDBLU -->|Retrieve relevant document chunks| CHUNKS[Retrieved Chunks];
-        CHUNKS -->|Pass retrieved context to LLM| I[LLM Response Generation];
-    end
+---
+title: Retrieval Pipeline
+---
+```mermaid
+graph LR;
+   UQ[User Query] -->|Search using metadata & vectors| VDBLU[Vector DB Lookup];
+   VDBLU -->|Retrieve relevant document chunks| CHUNKS[Retrieved Chunks];
+   CHUNKS -->|Pass retrieved context to LLM| I[LLM Response Generation];
 ```
 
