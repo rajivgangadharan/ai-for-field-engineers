@@ -107,23 +107,26 @@ The metadata extracted from the pdf files provide very rich context for retrieva
 It is often used for filtering in the case of vector databases like _qdrant_.
 
 ```mermaid
+---
+title: Data Ingestion Segment
+---
 
-graph TD;
+graph LR;
     DS[Data Sources] -->|Scanned PDFs| O[OCR Processing];
     DS -->|Digital PDFs| TE[Text Extraction];
     DS -->|Field and Control Logs - Binary or Proprietary| BJX[Binary to JSON or XML];
     DS -->|Modbus Data - Levels 1 to 3| E[Modbus to CSV Processing];
-    DS -->|CSV or Syslog Logs - Levels 2 to 3| F[CSV Parsing and Normalization];
+    DS -->|CSV or Syslog Logs - Levels 2 to 3| PN[CSV Parsing and Normalization];
     DS -->|JSON or XML Logs - Level 4| DIS[Direct Storage];
-    DS -->|MQTT Alerts| H[Azure IoT Hub];
+    DS -->|MQTT Alerts| HUB[Azure IoT Hub];
     
     O --> I[Text Cleaning and Chunking];
     TE --> I;
     BJX --> T[Transform];
     E --> T;
-    F --> T;
+    PN --> T;
     DIS --> K[Store in Azure Blob];
-    H --> R[Real-time Event Processing];
+    HUB --> R[Real-time Event Processing];
     
     I --> M[Metadata Extraction];
     K --> N;
