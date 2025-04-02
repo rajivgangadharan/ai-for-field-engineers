@@ -148,6 +148,18 @@ graph LR;
 ```
 
 --- 
+
+## Retrieval Segment
+
+At this point the pdf files are in the _Azure Blob Storage_, the meta data extracted
+in the previous segment is stored in a document database like _MongoDB_. 
+
+### Generation and Storing of Embeddings
+
+The next step is to compute the embeddings using an embedding model and upload it 
+along with the meta-data into the vector database. 
+
+
 ```mermaid
 ---
 title: Embedding Storage Pipeline
@@ -157,6 +169,19 @@ graph LR;
     CHUNKING -->|Process text for embeddings| VEC[Vectorization using an Embedding Model];
     VEC -->|Store embeddings + metadata| V[Vector Database]; 
 ```
+
+At this point, all the components of the architecture is ready for 
+use. 
+
+### Symantic Search
+
+The mechanism is as follows:
+1. Query is input by the user
+2. Query is converted into a _query embedding_, meta data is used at this stage to 
+   either enrich the context or to perform filteration based on the meta data
+3. The system uses similarity search for documents which march the query.
+4. Documents (the number can be mentioned, e.g k = 1) will be returned ranked on 
+   the basis of similarity
 
 
 ```mermaid
@@ -169,3 +194,4 @@ graph LR;
    CHUNKS -->|Pass retrieved context to LLM| I[LLM Response Generation];
 ```
 
+---
