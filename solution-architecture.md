@@ -149,7 +149,7 @@ graph LR;
 
 --- 
 
-## Retrieval Segment
+## Indexing and Retrieval Segment
 
 At this point the pdf files are in the _Azure Blob Storage_, the meta data extracted
 in the previous segment is stored in a document database like _MongoDB_. 
@@ -195,3 +195,27 @@ graph LR;
 ```
 
 ---
+
+## Response Generation
+
+The retrieved test in the above architectural segment provides context to the query 
+made to the llm. 
+
+The context is then dynamically substituted in a prompt and then dispatched to a 
+llm. This results in a context-aware response which is then available to the user, 
+which in our case is a service engineer.
+
+### Post Processing
+
+This response can then be enriched or formatted in a way so as to make it more 
+useful for the user
+
+1. Summarization - The response then can then be sent to another model like 
+   _Pegassus_  which can then provide very good summarization. In our case, this
+   can be used to condense large documents to provide what is required and 
+   necessarity for our service engineers
+
+2. Citation - The easiest way to do this is to capture the metadata and 
+   then use the metadata for citations. Advanced citation extractions can also be 
+   done but it may be computationally intensive and may not add more value.
+
