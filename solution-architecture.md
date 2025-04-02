@@ -158,10 +158,11 @@ graph LR;
     VEC -->|Store embeddings + metadata| V[Vector Database]; 
 ```
 
+
+```mermaid
 ---
 title: Retrieval Pipeline
 ---
-```mermaid
 graph LR;
    UQ[User Query] -->|Search using metadata & vectors| VDBLU[Vector DB Lookup];
    VDBLU -->|Retrieve relevant document chunks| CHUNKS[Retrieved Chunks];
