@@ -30,7 +30,11 @@ relevant answers from unstructured PDFs, service logs, and manuals.
 ## Scope
 
 1. Pipelines will need to constructed, de-duplicated and loaded into a 
-   _Data Lake_. _This part is kept out of the scope of this document due to complexity._ ## User Interaction
+   _Data Lake_.
+
+   _This part is kept out of the scope of this document due to complexity._
+
+## User Interaction
 * Engineer wants to find out how to resolve the issue
 
 ```text
