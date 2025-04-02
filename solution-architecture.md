@@ -89,7 +89,11 @@ The technologies used will be as follows:
 
 # Data Ingestion
 
-## **Data Ingesting Segment - Mermaid Diagram**
+## Data Ingestion Segment
+
+Each type of data needs to be handled separately, in an industrial setting this is
+key for the success of the RAG system which we are doing the Architecture Development
+for.
 
 ```mermaid
 
@@ -108,18 +112,18 @@ graph TD;
     E --> J;
     F --> J;
     G --> K[Store in Azure Blob];
-    H --> L[Real-time Event Processing];
+    H --> R[Real-time Event Processing];
     
     I --> M[Metadata Extraction];
     J --> N[Store in Azure Data Lake];
     K --> N;
-    L --> N;
+    R --> N;
     
-    N --> O(Azure Data Lake);
+    N --> N(Azure Data Lake);
     M --> V(Vector Data Store);
     
     subgraph "Storage Destination"
-        O
+        N
         V
     end
 
