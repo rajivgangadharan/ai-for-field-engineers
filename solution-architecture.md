@@ -96,16 +96,36 @@ The technologies used will be as follows:
 ## **Data Ingesting Segment - Mermaid Diagram**
 
 ```mermaid
+
 graph TD;
-    A[Data Sources] -->|PDFs| B(OCR & PDF Parsing);
-    A -->|Structured Data| C(Data Normalization);
-    A -->|Service Logs| D(Unstructured Text Processing);
-    B --> E(Text Cleaning & Chunking);
-    C --> E;
-    D --> E;
-    E --> F(Named Entity Recognition);
-    F --> G(Metadata Storage);
-    G --> H(Vectorization & Indexing);
+    A[Data Sources] -->|Scanned PDFs| B(OCR Processing);
+    A -->|Digital PDFs| C(Text Extraction);
+    A -->|Field & Control Logs (Binary/Proprietary)| D(Binary to JSON/XML);
+    A -->|Modbus Data (Levels 1-3)| E(Modbus to CSV Processing);
+    A -->|CSV/Syslog Logs (Levels 2-3)| F(CSV Parsing & Normalization);
+    A -->|JSON/XML Logs (Level 4)| G(Direct Storage);
+    A -->|MQTT Alerts| H(Azure IoT Hub);
+    
+    B --> I(Text Cleaning & Chunking);
+    C --> I;
+    D --> J(Transform & Store in Azure Data Lake);
+    E --> J;
+    F --> J;
+    G --> K(Store in Azure Blob);
+    H --> L(Real-time Event Processing);
+    
+    I --> M(Metadata Extraction);
+    J --> N(Store in Azure Data Lake);
+    K --> N;
+    L --> N;
+    
+    N --> O(Azure Blob Storage / Data Lake);
+    
+    subgraph "Storage Destination"
+        O
+    end
+
 ```
+
 --- 
 
