@@ -92,8 +92,19 @@ The technologies used will be as follows:
 ## Data Ingestion Segment
 
 Each type of data needs to be handled separately, in an industrial setting this is
-key for the success of the RAG system which we are doing the Architecture Development
-for.
+key for the success of the RAG system which we are doing the Architecture 
+Development for.
+
+1. OCR using tools like _Tesseract_ will be required for scanned pdfs
+2. For processing tables libraries like _camelot_ are required
+3. We may even need paid services like llamaparse for parsing pdf documents
+
+The eventual destination of this stage is primarily a data lake. The secondary 
+storage will be a vector database but that will happen later in the data 
+processing pipelines. 
+
+The metadata extracted from the pdf files provide very rich context for retrieval.
+It is often used for filtering in the case of vector databases like _qdrant_.
 
 ```mermaid
 
