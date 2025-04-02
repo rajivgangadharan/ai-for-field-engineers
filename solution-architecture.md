@@ -98,28 +98,28 @@ The technologies used will be as follows:
 ```mermaid
 
 graph TD;
-    A[Data Sources] -->|Scanned PDFs| B(OCR Processing);
-    A -->|Digital PDFs| C(Text Extraction);
-    A -->|Field & Control Logs (Binary/Proprietary)| D(Binary to JSON/XML);
-    A -->|Modbus Data (Levels 1-3)| E(Modbus to CSV Processing);
-    A -->|CSV/Syslog Logs (Levels 2-3)| F(CSV Parsing & Normalization);
-    A -->|JSON/XML Logs (Level 4)| G(Direct Storage);
-    A -->|MQTT Alerts| H(Azure IoT Hub);
+    A[Data Sources] -->|Scanned PDFs| B[OCR Processing];
+    A -->|Digital PDFs| C[Text Extraction];
+    A -->|Field and Control Logs - Binary or Proprietary| D[Binary to JSON or XML];
+    A -->|Modbus Data - Levels 1 to 3| E[Modbus to CSV Processing];
+    A -->|CSV or Syslog Logs - Levels 2 to 3| F[CSV Parsing and Normalization];
+    A -->|JSON or XML Logs - Level 4| G[Direct Storage];
+    A -->|MQTT Alerts| H[Azure IoT Hub];
     
-    B --> I(Text Cleaning & Chunking);
+    B --> I[Text Cleaning and Chunking];
     C --> I;
-    D --> J(Transform & Store in Azure Data Lake);
+    D --> J[Transform and Store in Azure Data Lake];
     E --> J;
     F --> J;
-    G --> K(Store in Azure Blob);
-    H --> L(Real-time Event Processing);
+    G --> K[Store in Azure Blob];
+    H --> L[Real-time Event Processing];
     
-    I --> M(Metadata Extraction);
-    J --> N(Store in Azure Data Lake);
+    I --> M[Metadata Extraction];
+    J --> N[Store in Azure Data Lake];
     K --> N;
     L --> N;
     
-    N --> O(Azure Blob Storage / Data Lake);
+    N --> O[Azure Data Lake];
     
     subgraph "Storage Destination"
         O
