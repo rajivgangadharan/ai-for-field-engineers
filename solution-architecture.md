@@ -108,18 +108,17 @@ graph TD;
     
     B --> I[Text Cleaning and Chunking];
     C --> I;
-    D --> J[Transform and Store in Azure Data Lake];
-    E --> J;
-    F --> J;
+    D --> T[Transform];
+    E --> T;
+    F --> T;
     G --> K[Store in Azure Blob];
     H --> R[Real-time Event Processing];
     
     I --> M[Metadata Extraction];
-    J --> N[Store in Azure Data Lake];
     K --> N;
     R --> N;
     
-    N --> N(Azure Data Lake);
+    T --> N(Azure Data Lake);
     M --> V(Vector Data Store);
     
     subgraph "Storage Destination"
