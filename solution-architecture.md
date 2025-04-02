@@ -112,7 +112,7 @@ It is often used for filtering in the case of vector databases like _qdrant_.
 
 ```mermaid
 ---
-title: Data Ingestion Segment
+title: Data Ingestion and Processing
 ---
 
 graph LR;
@@ -148,4 +148,19 @@ graph LR;
 ```
 
 --- 
+```mermaid
+---
+title: Metadata Storage and Retrieval Pipeline
+---
+graph LR;
+    DOC(Document Store) -->|Fetch metadata for chunking| CHUNKING[Chunking Process];
+    CHUNKING -->|Process text for embeddings| VEC[Vectorization (Embedding Model)];
+    VEC -->|Store embeddings + metadata| V[Vector Database (Qdrant)];
+
+    subgraph "Retrieval Pipeline"
+        UQ[User Query] -->|Search using metadata & vectors| VDBLU[Vector DB Lookup];
+        VDBLU -->|Retrieve relevant document chunks| CHUNKS[Retrieved Chunks];
+        CHUNKS -->|Pass retrieved context to LLM| I[LLM Response Generation];
+    end
+```
 
