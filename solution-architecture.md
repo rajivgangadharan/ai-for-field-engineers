@@ -152,7 +152,7 @@ graph LR;
 
 ## Indexing and Retrieval Segment
 
-At this point the pdf files are in the _Azure Blob Storage_, the meta data extracted
+At this point the pdf files are in the _Azure Blob Storage_, the metadata extracted
 in the previous segment is stored in a document database like _MongoDB_. 
 
 ### Generation and Storing of Embeddings
@@ -178,11 +178,10 @@ use.
 
 The mechanism is as follows:
 1. Query is input by the user
-2. Query is converted into a _query embedding_, meta data is used at this stage to 
-   either enrich the context or to perform filteration based on the meta data
-3. The system uses similarity search for documents which march the query.
-4. Documents (the number can be mentioned, e.g k = 1) will be returned ranked on 
-   the basis of similarity
+2. Query is converted into a _query embedding_, metadata is used at this stage to 
+   either enrich the context or to perform filtration based on the metadata
+3. The system uses a similarity search for documents which match the query.
+4. Documents (the number can be mentioned, e.g k = 1) will be returned ranked based on similarity
 
 
 ```mermaid
@@ -216,13 +215,13 @@ graph LR;
     LLM -->|Generate structured response with citations| RESPONSE["Final Response with Sources"];
     RESPONSE -->|Return answer with links & references| USR["User"];
 ```
-This response can then be enriched or formatted in a way so as to make it more 
+This response can then be enriched or formatted in a way to make it more 
 useful for the user
 
-1. Summarization - The response then can then be sent to another model like 
-   _Pegassus_  which can then provide very good summarization. In our case, this
+1. Summarization - The response can then be sent to another model like 
+   _Pegassus_  which can then provide a very good summarization. In our case, this
    can be used to condense large documents to provide what is required and 
-   necessarity for our service engineers
+   necessary for our service engineers
 
 2. Citation - The easiest way to do this is to capture the metadata and 
    then use the metadata for citations. Advanced citation extractions can also be 
@@ -239,18 +238,20 @@ architecture to production.
 ### Front End
 
 1. For the initial versions using _streamlit_ and _gradio_ is sufficient. This will ensure 
-   rapid iteration and refinement from a end user perspective. 
+   rapid iteration and refinement from an end-user perspective. 
 
-2. Later versions will need working with UX professionals to ensure that the organization 
+2. Later versions will need working with UX professionals to ensure that the organization the  
    design language is adhered to.
+
+3. Since this is going to be used by Field Service Engineers, we should also get the UI optimized for Mobile devices.
 
 ### The Service Layer
 
 This will include the services connected in a service mesh with integrated observability
 
-1. Every service which is exposed in the service layer will have apis (FastAPi) exposed. 
-   Even driven architectures using kafka can also be used to increase decoupling
-   between services and increase resilience. Some of the services which can be 
+1. Every service that is exposed in the service layer will have APIs (FastAPi) exposed. 
+   Even driven architectures using Kafka can also be used to increase decoupling
+   between services and increase resilience. Some of the services that can be 
    connected to an event backbone will be:
 
        a. Document Ingestion Services - Since documents can come into the store at any time
@@ -260,23 +261,23 @@ This will include the services connected in a service mesh with integrated obser
        c. Services which subscribe to MQTT messages from field devices 
           (UPS and Related edge components)
 
-  _Further analysis maybe required to identify which services quality for integration 
-  into an event driven backbone_
+  _Further analysis may be required to identify which services qualify for integration 
+  into an event-driven backbone_
 
 2. The services will be packed in a container and pushed into a container registry, and then
-   deployed into a kubernetes cluster. 
+   deployed into a Kubernetes cluster. 
 
-   - Isolation in the form of namespaces is requiried for better structure
+   - Isolation in the form of namespaces is required for better structure
 
        a. *Ingestion* - Isolation of *data pipelines* 
 
-       b. *Observability* stack (Prometheus, Grafana, Loki, Elastic Search etc.)
+       b. *Observability* stack (Prometheus, Grafana, Loki, Elastic Search, etc.)
 
        c. *RAG* components 
 
        d. *Ingress* (NGINX)
 
-       e. *Inference* - Depending on if the llm is local (Ollama) or cloud based
+       e. *Inference* - Depending on if the llm is local (Ollama) or cloud-based
 
        f. Presentation Services (UI) 
 
