@@ -261,13 +261,8 @@ This will include the services connected in a service mesh with integrated obser
        c. Services which subscribe to MQTT messages from field devices 
           (UPS and Related edge components)
 
-<<<<<<< Updated upstream
-  _Further analysis may be required to identify which services qualify for integration 
-  into an event-driven backbone_
-=======
   Further analysis maybe required to identify which services quality for integration 
   into an event driven backbone.
->>>>>>> Stashed changes
 
 2. The services will be packed in a container and pushed into a container registry, and then
    deployed into a Kubernetes cluster. 
@@ -289,7 +284,6 @@ This will include the services connected in a service mesh with integrated obser
    - Stateful sets for Qdrant, MongoDB, Kafka 
 
 ``` mermaid
-
 flowchart LR
     subgraph Frontend
         UI[Streamlit/Gradio UI] -->|User Query| APIGW[API Gateway / Ingress]
