@@ -85,6 +85,7 @@ Data Management Layers
 
 
 The technologies used will be as follows:
+
 1. Large Language Models
 2. Vector Embedding Storage and Search
 3. Knowledge Graphs
@@ -252,12 +253,12 @@ This will include the services connected in a service mesh with integrated obser
    between services and increase resilience. Some of the services which can be 
    connected to an event backbone will be 
 
-   a. Document Ingestion Services - Since documents can come into the store at any time
+       a. Document Ingestion Services - Since documents can come into the store at any time
 
-   b. Embedding service and vector store updater services
+       b. Embedding service and vector store updater services
 
-   c. Services which subscribe to MQTT messages from field devices 
-      (UPS and Related edge components)
+       c. Services which subscribe to MQTT messages from field devices 
+          (UPS and Related edge components)
 
       _Further analysis maybe required to identify which services quality for integration 
       into an event driven backbone_
