@@ -227,3 +227,42 @@ useful for the user
    then use the metadata for citations. Advanced citation extractions can also be 
    done but it may be computationally intensive and may not add more value.
 
+
+## Deployment Architecture
+
+Once the development of the Data Management Layers - the data pipelines, the RAG pipeline 
+which includes the vector store, the embedding generation and store services, the retrieval
+services  and the response generation is complete. We have to look at the final deployment 
+architecture to production.
+
+### Front End
+
+1. For the initial versions using _streamlit_ and _gradio_ is sufficient. This will ensure 
+   rapid iteration and refinement from a end user perspective. 
+2. Later versions will need working with UX professionals to ensure that the organization 
+   design language is adhered to.
+
+### The Service Layer
+
+This will include the services connected in a service mesh with integrated observability
+
+1. Every service which is exposed in the service layer will have apis (FastAPi) exposed. 
+   Even driven architectures using kafka can also be used to increase decoupling
+   between services and increase resilience. Some of the services which can be 
+   connected to an event backbone will be 
+   a. Document Ingestion Services - Since documents can come into the store at any time
+   b. Embedding service and vector store updater services
+   c. Services which subscribe to MQTT messages from field devices 
+      (UPS and Related edge components)
+      _Further analysis maybe required to identify which services quality for integration 
+      into an event driven backbone_
+2. The services will be packed in a container and pushed into a container registry, and then
+   deployed into a kubernetes cluster. 
+   - Isolation in the form of namespaces is requiried for better structure
+       a. *Ingestion* - Isolation of *data pipelines* 
+       b. *Observability* stack (Prometheus, Grafana, Loki, Elastic Search etc.)
+       c. *RAG* components 
+       d. *Ingress* (NGINX)
+       e. *Inference* - Depending on if the llm is local (Ollama) or cloud based
+       f. Presentation Services (UI) 
+   - Stateful sets for Qdrant, MongoDB, Kafka 
