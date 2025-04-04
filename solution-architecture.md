@@ -251,7 +251,7 @@ This will include the services connected in a service mesh with integrated obser
 1. Every service which is exposed in the service layer will have apis (FastAPi) exposed. 
    Even driven architectures using kafka can also be used to increase decoupling
    between services and increase resilience. Some of the services which can be 
-   connected to an event backbone will be 
+   connected to an event backbone will be:
 
        a. Document Ingestion Services - Since documents can come into the store at any time
 
@@ -260,8 +260,8 @@ This will include the services connected in a service mesh with integrated obser
        c. Services which subscribe to MQTT messages from field devices 
           (UPS and Related edge components)
 
-      _Further analysis maybe required to identify which services quality for integration 
-      into an event driven backbone_
+  _Further analysis maybe required to identify which services quality for integration 
+  into an event driven backbone_
 
 2. The services will be packed in a container and pushed into a container registry, and then
    deployed into a kubernetes cluster. 
