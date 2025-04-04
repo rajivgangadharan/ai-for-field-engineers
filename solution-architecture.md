@@ -300,7 +300,8 @@ flowchart LR
         METADATA --> CHUNKER[Chunking + Preprocessing]
         CHUNKER --> EMBEDDING[Embedding Generator]
         EMBEDDING --> K2((Kafka Topic: embeddings_ready))
-        K2 --> VSTORE[Vector DB Updater (Qdrant)]
+        K2 --> VDB_UPD_SVC
+        VDB_UPD_SVC --> VSTORE(Qdrant)
     end
 
     subgraph Inference
