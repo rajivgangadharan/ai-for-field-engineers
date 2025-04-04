@@ -284,6 +284,7 @@ This will include the services connected in a service mesh with integrated obser
    - Stateful sets for Qdrant, MongoDB, Kafka 
 
 ``` mermaid
+
 flowchart LR
     subgraph Frontend
         UI[Streamlit/Gradio UI] -->|User Query| APIGW[API Gateway / Ingress]
