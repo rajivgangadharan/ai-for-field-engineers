@@ -256,13 +256,18 @@ This will include the services connected in a service mesh with integrated obser
 
        a. Document Ingestion Services - Since documents can come into the store at any time
 
-       b. Embedding service and vector store updater services
+       b. Embedding Service and Vector Store Updater services
 
        c. Services which subscribe to MQTT messages from field devices 
           (UPS and Related edge components)
 
+<<<<<<< Updated upstream
   _Further analysis may be required to identify which services qualify for integration 
   into an event-driven backbone_
+=======
+  Further analysis maybe required to identify which services quality for integration 
+  into an event driven backbone.
+>>>>>>> Stashed changes
 
 2. The services will be packed in a container and pushed into a container registry, and then
    deployed into a Kubernetes cluster. 
@@ -282,3 +287,45 @@ This will include the services connected in a service mesh with integrated obser
        f. Presentation Services (UI) 
 
    - Stateful sets for Qdrant, MongoDB, Kafka 
+
+``` mermaid
+
+flowchart LR
+    subgraph Frontend
+        UI[Streamlit/Gradio UI] -->|User Query| APIGW[API Gateway / Ingress]
+    end
+
+    subgraph Ingestion
+        DOC[Document Upload] --> ING[Ingestion Service]
+        MQTT[IoT MQTT Listener] --> ING
+        ING -->|Trigger| K1((Kafka Topic: ingestion))
+    end
+
+    subgraph RAG_System
+        K1 --> METADATA[Metadata Extractor]
+        METADATA --> CHUNKER[Chunking + Preprocessing]
+        CHUNKER --> EMBEDDING[Embedding Generator]
+        EMBEDDING --> K2((Kafka Topic: embeddings_ready))
+        K2 --> VSTORE[Vector DB Updater (Qdrant)]
+    end
+
+    subgraph Inference
+        VSTORE -->|Vector Search| RETRIEVER[Retriever Service]
+        RETRIEVER --> LLM[LLM Response Generator]
+        LLM --> APIGW
+    end
+
+    subgraph Observability
+        LOG[Loki] & MET[Prometheus] & VIS[Grafana]
+    end
+
+    subgraph Datastores
+        MDB[(MongoDB)]
+        QDRANT[(Qdrant)]
+        KAFKA[(Kafka Brokers)]
+    end
+
+    APIGW -->|API| MDB
+    APIGW -->|Search Results| UI
+
+```
